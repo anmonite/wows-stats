@@ -29,7 +29,7 @@
 		"r01_military_navigation": "Контрудар",
 		"s01_NavalBase": "Операция «Косатка»",
 		"s02_Naval_Defense": "Защита базы ВМФ «Ньюпорт»",
-		"s03_Labyrinth": "Лабиринт",
+		"s03_Labyrinth": "Лабиринт",l
 		"s06_Atoll": "Операция «Последний рубеж»",
 		"s07_Advance": "«Нараи»",
 		"e02_Halloween_2017": "Луч во тьме",
@@ -106,8 +106,6 @@
 			"KillDeath_title": "Потопил / Был потоплен",
 			"winRate": "Выиграть",
 			"winRate_title": "Процент побед",
-			"WTR": "WTR",
-			"WTR_title": "WTR(WarshipsToday рейтинг)",
 			"PR": "PR",
 			"PR_title": "PR(Персональный рейтинг)",
 			"survival": "Выживание",
