@@ -1,8 +1,7 @@
-const wsp_version = '1.1.1';
+const wsp_version = '1.5.0';
 const MAX_RETRY = 5;
-
-// include WTR rating calculation
-$.getScript("./js/calculateWarshipsTodayRating.js");
+const images_path = 'images/';
+const images_suffix = '.png';
 
 // include PR rating calculation
 $.getScript("./js/calculatePersonalRating.js");
@@ -15,7 +14,8 @@ var lang_array = [];
 var site_array = [];
 var nameConvert_array = [];
 var statsSite_array = [];
-var coefficientsList = {};
+//var coefficientsList = {};
+var expectedList = {};
 var ship_info = {};
 var clanTagList = {};
 var ownerName = '';
@@ -23,15 +23,31 @@ var ready_lang = false;
 var ready_shipinfo = false;
 var ready_shipTable = false;
 var ready_siteList = false;
-var ready_coefficients = false;
-const images_pre = 'images/';
-const images_prefix = '.png';
+//var ready_coefficients = false;
+var ready_expected = false;
 var capture_flag = true;
 var Interval_timer;
 
 var api_url = '';
 var api_key = '';
 
+// validation of cookie
+function validate_cookie(cookie) {
+	if ((cookie.shipColumn <= 0) || (cookie.shipColumn > 65504)) {
+//		 max: 1111111111100000
+		return false;
+	}
+	if ((cookie.playerColumn <= 0) || (cookie.playerColumn > 64512)) {
+//		 max: 1111110000000000
+		return false;
+	}
+	if ((cookie.statsSite < 0) || (cookie.statsSite > 5)) {
+//		 max: 4
+		return false;
+	}
+
+	return true;
+}
 
 function get_availableLanguageList() {
 //	console.log('Enter get_availableLanguageList');
@@ -114,30 +130,35 @@ function get_statsSiteList() {
 	});
 }
 
-function get_WTRcoefficientsShipList() {
-//	console.log('Enter get_WTRcoefficientsShipList');
-
-	var sync_getCoefficientsShipList = new Promise (function (resolve, reject) {
-		$.getJSON('js/coefficients.json', function(data) {
+function get_PRexpectedShipList() {
+//	console.log('Enter get_PRcexpectedShipList');
+	
+	var sync_getExpectedShipList = new Promise (function (resolve, reject) {
+		$.getJSON('js/expected.json', function(data) {
 			if (data.status = 'ok') {
-//				console.log(data);
-				coefficientsList = data.expected;
-//				console.log(coefficientsList);
-//				console.log('Success get coefficients list');
-				resolve();
+//			console.log(data);
+				expectedList = data.data;
+				if (expectedList != null) {
+//				console.log(expectedList);
+//				console.log('Success get expected list');
+					resolve();
+				}	else {
+//				console.log('empty expected list');
+					reject();
+				}
 			} else {
-//				console.log('Fail get coefficients list %s', data.status);
+//			console.log('Fail get expected list %s', data.status);
 				reject();
 			}
 		});
 	});
-
-	sync_getCoefficientsShipList.then ( function () {
-//		console.log('Exit get_WTRcoefficientsShipList with success');
-		ready_coefficients = true;
+	
+	sync_getExpectedShipList.then ( function () {
+//	console.log('Exit get_PRexpectedShipList with success');
+		ready_expected = true;
 	});
 }
-
+	
 function get_shipinfo(idArray) {
 //	console.log('Enter get_shipinfo');
 
@@ -323,7 +344,7 @@ function getClanList(nArray) {
 	});
 }
 
-function  shiptype(val1,val2,val3,val4) {
+function shiptype(val1,val2,val3,val4) {
 	if ( val1 ){
 		cv ="none";
 	}else {
@@ -525,8 +546,8 @@ get_availableLanguageList();
 // loading shipname convert table
 get_shipnameConvertTable();
 
-// loading WTR coefficients table
-get_WTRcoefficientsShipList();
+// loading PR expected value table
+get_PRexpectedShipList();
 
 // loading stats site list
 get_statsSiteList();
@@ -773,10 +794,9 @@ api.shiptype_s = function(type, value) {
 
 api.nation_s = function(str) {
 var ntname = [
-	["japan","JP"] ,["usa","US"] ,["ussr","SU"],["germany","DE"] ,
-	["uk","UK"],["france","FR"] ,["poland","PL"],["pan_asia","PA"] ,
-	["italy","IT"],["australia","AU"],["commonwealth","CW"],
-	["netherlands","NL"],["spain","ES"]
+	["japan","JP"] ,["usa","US"] ,["ussr","SN"],["germany","KM"] ,
+	["uk","RN"],["france","MN"] ,["europe","EU"],["pan_asia","PA"] ,
+	["italy","IT"],["pan_america","PM"],["commonwealth","CW"]
 ];
 
 	for (var i=0; i<ntname.length ; i++) {
@@ -790,10 +810,9 @@ var ntname = [
 
 api.nation_for_sort = function(str) {
 var ntname = [
-	["japan","japan"] ,["usa","america"] ,["ussr","soviet"],["germany","german"] ,
-	["uk","england"],["france","france"] ,["poland","poland"],["pan_asia","panasia"] ,
-	["italy","italia"],["australia","austoralia"],["commonwealth","hms"],
-	["netherlands","netherlands"],["spain","spain"]
+	["japan","J"] ,["usa","A"] ,["ussr","R"],["germany","G"] ,
+	["uk","B"],["france","F"] ,["europe","W"],["pan_asia","Z"] ,
+	["italy","I"],["pan_america","V"],["commonwealth","U"]
 ];
 
 	for (var i=0; i<ntname.length ; i++) {
@@ -873,44 +892,6 @@ api.b_beautify = function(type, value) {
 				} else {
 					return 'cp_class7';
 				}
-			}
-			break;
-		default:
-			return null;
-			break;
-	}
-}
-
-api.w_beautify = function(type, value) {
-	// colorization for WTR
-	switch(type) {
-		case "WTR":
-			if	(value < 300) {
-				return 'verybad_bg';
-			}
-			else if(value < 700) {
-				return 'bad_bg';
-			}
-			else if(value < 900) {
-				return 'belowaverage_bg';
-			}
-			else if(value < 1000) {
-				return 'average_bg';
-			}
-			else if(value < 1100) {
-				return 'good_bg';
-			}
-			else if(value < 1200) {
-				return 'verygood_bg';
-			}
-			else if(value < 1400) {
-				return 'great_bg';
-			}
-			else if(value < 1800) {
-				return 'unicum_bg';
-			}
-			else {
-				return 'superunicum_bg';
 			}
 			break;
 		default:
@@ -1067,7 +1048,6 @@ api.ship = function(player) {
 			var death = "";
 			var kakin = "";
 			var svrate = "";
-			var wtr = "";
 			var pr = "";
 			var combatPower = "";
 
@@ -1138,13 +1118,13 @@ api.ship = function(player) {
 					svrate = "－";
 				}
 
-				// WTR(WarshipsToday Rating) and PR(Personal Rating)
+				// PR(Personal Rating)
 				var expected = {};
-				if (coefficientsList != null) {
-					for (key in coefficientsList) {
-						if (coefficientsList[key].ship_id == player.shipId) {
-							expected = coefficientsList[key];
-//							console.log("player:%s list:%s", player.shipId, coefficientsList[key].ship_id);
+				if (expectedList != null) {
+					for (key in expectedList) {
+						if (key == player.shipId) {
+							expected = expectedList[key];
+//							console.log("player:%s list:%s", player.shipId, key);
 							break;
 						}
 					}
@@ -1157,12 +1137,9 @@ api.ship = function(player) {
 					actual.frags = parseFloat(data.raw.pvp.frags / data.raw.pvp.battles);
 					actual.planes_killed = parseFloat(data.raw.pvp.planes_killed / data.raw.pvp.battles);
 					actual.wins = parseFloat(data.raw.pvp.wins / data.raw.pvp.battles);
-					wtr = calculateWarshipsTodayRating(expected, actual);
 					pr = calculatePersonalRating(expected, actual);
-//					console.log(wtr);
 //					console.log(pr);
 				} else {
-					wtr = "－";
 					pr = "－";
 				}
 			}
@@ -1175,9 +1152,9 @@ api.ship = function(player) {
 				player.ship = {
 					"shiptia_s": data.info.tier,
 					"shipty": data.info.type,
-					"shiptype_s": images_pre + api.shiptype_s("shiptype", data.info.type) + images_prefix,
+					"shiptype_s": images_path + api.shiptype_s("shiptype", data.info.type) + images_suffix,
 					"shiptype_alt": data.info.type,
-					"shipnation_s": images_pre + api.nation_s(data.info.nation) + images_prefix,
+					"shipnation_s": images_path + api.nation_s(data.info.nation) + images_suffix,
 					"shipnation_alt": data.info.nation,
 					"shipkakin": kakin,
 					"name": data.name.toUpperCase(),
@@ -1187,8 +1164,6 @@ api.ship = function(player) {
 					"bgcolor": data.info.type+"_bg",
 					"winRate": winRate + "%",
 					"winRateClass": api.beautify("winRate", winRate),
-					"WTR": myFormatNumber(parseInt(wtr)),
-					"WTRClass": api.w_beautify("WTR", wtr),
 					"PR": myFormatNumber(parseInt(pr)),
 					"PRClass": api.p_beautify("PR", pr),
 					"shfl": atkavg,
@@ -1210,9 +1185,9 @@ api.ship = function(player) {
 				player.ship = {
 					"shiptia_s": ship_info.data[sid].tier,
 					"shipty": ship_info.data[sid].type,
-					"shiptype_s": images_pre + api.shiptype_s("shiptype", ship_info.data[sid].type) + images_prefix,
+					"shiptype_s": images_path + api.shiptype_s("shiptype", ship_info.data[sid].type) + images_suffix,
 					"shiptype_alt": ship_info.data[sid].type,
-					"shipnation_s": images_pre + api.nation_s(ship_info.data[sid].nation) + images_prefix,
+					"shipnation_s": images_path + api.nation_s(ship_info.data[sid].nation) + images_suffix,
 					"shipnation_alt": ship_info.data[sid].nation,
 					"shipkakin": kakin,
 					"name": ship_info.data[sid].name.toUpperCase(),
@@ -1222,8 +1197,6 @@ api.ship = function(player) {
 					"bgcolor": ship_info.data[sid].type+"_bg",
 					"winRate": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 					"winRateClass": '',
-					"WTR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
-					"WTRClass": '',
 					"PR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 					"PRClass": '',
 					"shfl": ((player.is_private != true) && (player.is_bot != true))? '－':'',
@@ -1253,7 +1226,6 @@ api.ship = function(player) {
 			var death = "";
 			var kakin = "";
 			var svrate = "";
-			var wtr = "";
 			var pr = "";
 			var combatPower = "";
 			var sid = player.shipId;
@@ -1272,8 +1244,6 @@ api.ship = function(player) {
 				"bgcolor" : '',
 				"winRate": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 				"winRateClass": '',
-				"WTR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
-				"WTRClass": '',
 				"PR": ((player.is_private != true) && (player.is_bot != true))? '－':'',
 				"PRClass": '',
 				"shfl" : ((player.is_private != true) && (player.is_bot != true))? '－':'',
@@ -1324,9 +1294,13 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 	var tmpCookie = $.cookie('wsp-settings');
 	if (tmpCookie != null) {
 		if (Object.keys(tmpCookie).length != 0) {
-//			console.log(tmpCookie);
-			for (key in tmpCookie) {
-				settingsCookie[key] = tmpCookie[key];
+			if (validate_cookie(tmpCookie)) {
+//				console.log(tmpCookie);
+				for (key in tmpCookie) {
+					settingsCookie[key] = tmpCookie[key];
+				}
+			} else {
+				console.log("Error: illegal value of cookie");
 			}
 		}
 	}
@@ -1393,7 +1367,7 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 	$scope.apply_change = function () {
 		var check_count_s = $('input[name="s_items"]:checked').length;
 		var check_count_p = $('input[name="p_items"]:checked').length;
-		if ((check_count_s >= 2) && (check_count_p >= 2)){
+		if ((check_count_s >= 2) && (check_count_p >= 2)) {
 			$scope.ship_colList.fill(0);
 			$('input[name="s_items"]:checked').each(function() {
 				var s_pos = ($(this).val()).slice(2);
@@ -1517,8 +1491,9 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 
 		$scope.captureFlag = capture_flag;
 
-		// view handling after sync-loaded of languages.json & shipname covert table & stats site list & WTR expected data
-		if (ready_lang && ready_shipTable &&  ready_siteList && ready_coefficients) {
+		// view handling after sync-loaded of languages.json & shipname covert table & stats site list & PR expected data
+//		if (ready_lang && ready_shipTable &&  ready_siteList && ready_coefficients) {
+		if (ready_lang && ready_shipTable &&  ready_siteList && ready_expected) {
 
 		$http({
 			method: 'GET',
@@ -1648,11 +1623,11 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 								if( tier1 < tier2 ) return 1;
 								if( tier1 > tier2 ) return -1;
 
-								// Nation
-								var nation1 = api.nation_for_sort(ship_info.data[shipID1].nation);
-								var nation2 = api.nation_for_sort(ship_info.data[shipID2].nation);
-								if( nation1 > nation2 ) return 1;
-								if( nation1 < nation2 ) return -1;
+                                // Nation
+                                var nation1 = api.nation_for_sort(ship_info.data[shipID1].nation);
+                                var nation2 = api.nation_for_sort(ship_info.data[shipID2].nation);
+                                if( nation1 > nation2 ) return 1;
+                                if( nation1 < nation2 ) return -1;
 
 							} catch(e) {
 								console.log('ileagal ship ID. seems old data-type JSON file');
@@ -1664,11 +1639,11 @@ app.controller('TeamStatsCtrl', ['$scope', '$translate', '$filter', '$rootScope'
 
 							// clan tag
 							var clan1 = '[' + clanTagList[val1.name] + ']';
-							var clan2 = '[' + clanTagList[val2.name] + ']';
-
+							var clan2 = '[' + clanTagList[val1.name] + ']';
+							
 							// player name with clan tag
-							var name1 = clan1 + val1.name;
-							var name2 = clan2 + val2.name;
+							var name1 = clan1.toString() + val1.name.toString();
+							var name2 = clan2.toString() + val2.name.toString();
 							if( name1 > name2 ) return 1;
 							if( name1 < name2 ) return -1;
 

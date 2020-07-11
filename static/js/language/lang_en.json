@@ -85,8 +85,8 @@
 		"Ranked_Domination": "Rank: Domination",
 		"Ranked_Epicenter": "Rank: Epicenter",
 		"CvC_Domination": "Clan: Domination",
-		"PVEVanHellsingRight": "Halloween: Pt.áT",
-		"Halloween_2017": "Halloween: Pt.áU"
+		"PVEVanHellsingRight": "Halloween: Pt.ÔøΩT",
+		"Halloween_2017": "Halloween: Pt.ÔøΩU"
 	},
 	"list_label1": {
 		"name": "Player name",
@@ -106,8 +106,6 @@
 			"KillDeath_title": "Rate of Kill/Death",
 			"winRate": "WinRate",
 			"winRate_title": "Rate of win",
-			"WTR": "WTR",
-			"WTR_title": "WTR(WarshipsToday Rating)",
 			"PR": "PR",
 			"PR_title": "PR(Personal Rating)",
 			"survival": "SurvivalRate",
@@ -142,6 +140,6 @@
 		"display": "Display",
 		"apply": "Apply",
 		"cancel": "Cancel",
-		"donate": "Donate 1Å` US$ with PayPal."
+		"donate": "Donate 1ÔøΩ` US$ with PayPal."
 	}
 }

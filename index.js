@@ -8,7 +8,6 @@ const jsonfile 	= require('jsonfile');
 var app = express();
 var port = process.env.PORT || 8080;
 var api_key = process.env.WOWS_API_KEY || "demo";
-var Interval_timer;
 var capture_flag = process.env.NODE_CAPTURE;
 if (capture_flag === 'true') {
 	capture_flag = true;
@@ -39,24 +38,49 @@ function get_season_num() {
 }
 get_season_num();
 
-function update_WTRcoefficientsJSON() {
-	request('https://api.asia.warships.today/json/wows/ratings/warships-today-rating/coefficients', function (error, response, body) {
+function update_PRexpectedJSON() {
+	var req_options = {
+		url: 'https://asia.wows-numbers.com/ja/personal/rating/expected/json/',
+		method: 'GET',
+		json: true
+	}
+	request(req_options, function (error, response, body) {
 		if ((!error && response.statusCode == 200) || (!error && response.statusCode == 304)) {
-//			console.log('Got coefficients json file for WTR.');
+			console.log('Got expected json file for PR.');
 
-			fs.writeFile('static/js/coefficients.json', body, function (err) {
-			  	if (!err) {
-					console.log('Overwrite ./static/js/coefficients json file.');
-			  	}
-			  	else {
-		  			console.log("Update error ./static/js/coefficients json file. : %s", err);
-			  	}
-			});
-		} else
-			console.log('Error getting coefficients data.');
+			if (body.data != null) {
+				fs.writeFile('static/js/expected.json', JSON.stringify(body, null, '	'), (err) => {
+					if (!err) {
+						console.log('Download & Overwrite completed as \'./static/js/expected.json\'.');
+
+						// copy json file as a stable
+						fs.copyFileSync('static/js/expected.json', 'static/js/expected_stable.json');
+						console.log('Success copy to \'expected_stable.json\'.');
+					} else {
+						console.log("Overwrite error './static/js/expected.json'. : %s", err);
+
+						// rollback expected.json from stable one
+						fs.copyFileSync('static/js/expected_stable.json', 'static/js/expected.json');
+						console.log('Success replace expected json file from stable one.');
+					}
+				});
+			} else {
+				console.log('empty expected list');
+
+				// rollback expected.json from stable one
+				fs.copyFileSync('static/js/expected_stable.json', 'static/js/expected.json');
+				console.log('Success replace expected json file from stable one.');
+			}
+		} else {
+			console.log('Error getting expected data.');
+
+			// rollback expected.json from stable one
+			fs.copyFileSync('static/js/expected_stable.json', 'static/js/expected.json');
+			console.log('Success replace expected json file from stable one.');
+		}
 	});
 }
-update_WTRcoefficientsJSON();
+update_PRexpectedJSON();
 
 // static endpoint
 app.use(express.static(__dirname + '/static'));
@@ -69,19 +93,104 @@ router.get('/', function(req, res) {
 	res.json({
 		status: "ok",
 		name: "wows-stats-plus api",
-		version: "v1"
+		version: "v2"
 	});
 });
 
 router.get('/env', function(req, res) {
 	var env = {};
-	env.API_URL = process.env.WOWS_API_URL;
+	if (process.env.WOWS_PATH)
+		env.PATH = process.env.WOWS_PATH;
+	if (process.env.WOWS_API_URL)
+		env.API_URL = process.env.WOWS_API_URL;
 	env.API_KEY = api_key;
 	env.CAPTURE_FLAG = capture_flag;
 	env.status = "ok";
 
 	res.json(env);
 });
+
+router.post('/path', jsonParser, function(req, res) {
+	if (req.body.path) {
+		fs.access(req.body.path + "/WorldOfWarships.exe", fs.R_OK, function (err) {
+			if (!err)
+				res.sendStatus(200);
+			else
+				res.sendStatus(404);
+		});
+	}
+	else
+		res.sendStatus(400);
+});
+
+
+router.post('/config', jsonParser, function(req, res) {
+	if (req.body.action) {
+		if (req.body.action == "cancel") {
+			res.sendStatus(200);
+			console.log("User cancelled wows-stats-plus configlation.")
+			process.exit(1);
+		}
+		else if(req.body.action == "save") {
+
+			var validation = {};
+
+			validation.checkPath = function() {
+				if (req.body.path) {
+					fs.access(req.body.path + "/WorldOfWarships.exe", fs.R_OK, function (err) {
+						if (err)
+							return res.status(400).send("World Of Warships application is not found.");
+						else 
+							validation.checkKey();
+					});
+				}
+				else
+					return res.sendStatus(400);
+			}
+
+			validation.checkKey = function() {
+				if (req.body.key) {
+					request(req.body.url + '/wows/encyclopedia/info/?application_id=' + req.body.key, function (error, response, body) {
+						if (!error && response.statusCode == 200) {
+							var data = JSON.parse(body);
+							if (data.status == 'ok')
+								return validation.save();
+							else
+								return res.status(400).send(data.error.message);
+						}
+						else
+							return res.status(response.statusCode).send(error);
+					});
+				}
+				else
+					return validation.save();
+			}
+
+			validation.save = function() {
+				fs.writeFile('.env', 
+					'WOWS_PATH="' + req.body.path + '"\n' +
+					'WOWS_API_URL="' + req.body.url + '"\n' + 
+					(req.body.key ? ('WOWS_API_KEY=' + req.body.key):''),
+					function (err) {
+					  	if (!err) {
+					  		res.sendStatus(200);
+					  		process.exit(0);
+					  		return;
+					  	}
+					  	else {
+					  		console.log(err);
+					  		return res.sendStatus(500);
+					  	}
+				});
+			}
+
+			validation.checkPath();
+		}
+	}
+	else
+		res.sendStatus(400);
+});
+
 
 // player api
 router.get('/player', jsonParser, function(req, res) {
@@ -330,10 +439,10 @@ router.get('/arena', jsonParser, function(req, res) {
 	var arenaJson = '';
 
 	if ((fname != '') && freg.test(fname)) {
-		arenaJson = process.env.WOWS_PATH + '/replays/' + fname + '.wowsreplay';
+		arenaJson = replayPath + fname;  
 		arg_mode = true;
 	} else {
-		arenaJson = process.env.WOWS_PATH + '/replays/tempArenaInfo.json';
+		arenaJson = replayPath + 'tempArenaInfo.json';  
 		arg_mode = false;
 	}
 
