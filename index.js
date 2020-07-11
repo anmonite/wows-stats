@@ -439,10 +439,10 @@ router.get('/arena', jsonParser, function(req, res) {
 	var arenaJson = '';
 
 	if ((fname != '') && freg.test(fname)) {
-		arenaJson = replayPath + fname;  
+		arenaJson = process.env.WOWS_PATH + '/replays/' + fname + '.wowsreplay';
 		arg_mode = true;
 	} else {
-		arenaJson = replayPath + 'tempArenaInfo.json';  
+		arenaJson = process.env.WOWS_PATH + '/replays/tempArenaInfo.json';
 		arg_mode = false;
 	}
 
