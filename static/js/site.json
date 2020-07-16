@@ -12,8 +12,8 @@
 		"uri": "https://%%REGION%%.wows-numbers.com/player/%%ID%%,%%NAME%%/"
 	},
 	{
-		"site": "Warships.Today",
-		"uri": "https://%%REGION%%.warships.today/player/%%ID%%/%%NAME%%"
+		"site": "Proships.ru",
+		"uri": "https://proships.ru/stat/%%REGION%%/p/%%ID%%-%%NAME%%/"
 	},
 	{
 		"site": "WoWStats.org",

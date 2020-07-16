@@ -13,7 +13,6 @@ Figure 2 - Settings window.
 
 # Functionality
 - Show stats information of all matching players and ships on the random battle(pvp).
-- Show WTR(Warships.today rating) value.
 - Show PR(Personal rating) value.
 - Show ships list with (maybe) same order as matching list of game client
 - Show value of "Combat power", player's rank of both previous and latest season and the clan tag in addition. 
@@ -27,7 +26,7 @@ Figure 2 - Settings window.
     * "Word of Warships (official)"
     * "WoWs Statinfo"
     * "WoWs Stats & Nmbers"
-    * "Warships.Today"
+    * "Proships.ru"
     * "WoWStats.org"
 - You can select your prefer language by selecting language menu (default is come from your bowser's language setting).
 - Support multi-language viewing by preparing translate json file.
@@ -78,5 +77,5 @@ And also anyone please try to create new JSON files for the other language(Thai(
 - Original wows-stats [tianweiliu](https://github.com/tianweiliu/wows-stats)
 - Zh-tw translation support [AaronChern](https://github.com/AaronChern)
 - It translation support [MightyWizard83](https://github.com/MightyWizard83)
-- Tips images for CP/WTR/PR provider [space_of_ice](https://worldofwarships.asia/en/community/accounts/2008515040-space_of_ice/)
+- Tips images for CP/PR provider [SuperContainer](https://github.com/SuperContainer)
 - Many thanks for whole testings this app to my WoWs clan [SWAN] members!!
