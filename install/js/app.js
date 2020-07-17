@@ -7,22 +7,22 @@ app.controller('InstallCtrl', function ($scope, $http) {
 		{
 			name: "Russia",
 			url: "http://api.worldofwarships.ru",
-			devRoom: "http://ru.wargaming.net/developers/"
+			devRoom: "https://developers.wargaming.net/"
 		},
 		{
 			name: "North America",
 			url: "http://api.worldofwarships.com",
-			devRoom: "http://na.wargaming.net/developers/"
+			devRoom: "https://developers.wargaming.net/"
 		},
 		{
 			name: "Europe",
 			url: "http://api.worldofwarships.eu",
-			devRoom: "http://eu.wargaming.net/developers/"
+			devRoom: "https://developers.wargaming.net/"
 		},
 		{
 			name: "Asia",
 			url: "http://api.worldofwarships.asia",
-			devRoom: "http://asia.wargaming.net/developers/"
+			devRoom: "https://developers.wargaming.net/"
 		},
 	];
 	$scope.api.path = {};
