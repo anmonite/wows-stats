@@ -41,7 +41,6 @@
 		"20_NE_two_brothers": "Two Brothers",
 		"22_tierra_del_fuego": "Land of Fire",
 		"23_Shards": "Shards",
-		"24_Rendezvous": "Rendezvous",
 		"25_sea_hope": "Sea of Fortune",
 		"28_naval_mission": "Tears of the Desert",
 		"33_new_tierra": "Polar",
@@ -56,7 +55,6 @@
 		"45_Zigzag": "Loop",
 		"46_Estuary": "Estuary",
 		"47_Sleeping_Giant": "Sleeping Giant",
-		"49_Shoreside": "Shoreside",
 		"50_Gold_harbor": "Haven",
 		"51_Greece": "Greece",
 		"52_Britain": "Crash Zone Alpha",
@@ -75,7 +73,7 @@
 		"s09_LePVE": "Hermes",
 		"s10_USS_CL": "Cherry Blossom",
 		"50_VanHellsing": "Saving Transylvania",
-		"e02_Halloween_2017": "Sunray in the Darkness"		
+		"e02_Halloween_2017": "Sunray in the Darkness"
 	},
 	"mode": {
 		"Default_test": "Tutorial",
@@ -88,6 +86,7 @@
 		"MegaBase": "Random: MegaBase",
 		"Domination": "Random: Domination",
 		"Domination_rhombus": "Random: Domination",
+		"Domination_Special": "Domination",
 		"Ranked_Domination": "Rank: Domination",
 		"Ranked_Epicenter": "Rank: Epicenter",
 		"CvC_Domination": "Clan: Domination",
