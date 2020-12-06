@@ -1,4 +1,4 @@
-const wsp_version = '1.2.1';
+const wsp_version = '1.2.5';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
@@ -9,7 +9,7 @@ $.getScript("./js/calculatePersonalRating.js");
 // include modal window handling
 $.getScript("./js/modalwindow.js");
 
-var settingsCookie = { "shipColumn": 64704, "playerColumn": 52224, "statsSite": 2 };
+var settingsCookie = { "shipColumn": 64704, "playerColumn": 19456, "statsSite": 2 };
 var lang_array = [];
 var site_array = [];
 var nameConvert_array = [];
