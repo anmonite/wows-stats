@@ -173,7 +173,8 @@
 		"Alexander Nevsky": "A. Nevsky",
 		"Mikhail Kutuzov": "Kutuzov",
 		"Pyotr Bagration": "P. Bagration",
-		"Admiral Makarov": "Makarov"
+		"Admiral Makarov": "Makarov",
+		"Almirante Abreu": "Alte Abreu"
 	},
 	"zh-tw": {
 		"Franklin D. Roosevelt": "F.D. Roosevelt",
@@ -363,7 +364,8 @@
 		"Alexander Nevsky": "A. Nevsky",
 		"Mikhail Kutuzov": "Kutuzov",
 		"Pyotr Bagration": "P. Bagration",
-		"Admiral Makarov": "Makarov"
+		"Admiral Makarov": "Makarov",
+		"Almirante Abreu": "Alte Abreu"
 	},
 	"ru": {
 		"Franklin D. Roosevelt": "F.D. Roosevelt",
@@ -468,6 +470,7 @@
 		"Okhotnik": "Охотник",
 		"Leningrad": "Ленинград",
 		"Neustrashimy": "Неустрашимый",
-		"[Grozovoi]": "[Грозовой]"
+		"[Grozovoi]": "[Грозовой]",
+		"Almirante Abreu": "Alte Abreu"
 	}
 }
