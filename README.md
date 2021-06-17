@@ -58,8 +58,8 @@ You agree that statistics of a player does NOT mean how a player will perform in
 - **If you leave or refresh this page, installation will be cancelled, and you will need to run install.bat again.**
 7. Change `World of Warships Location` to where you installed [World of Warships](http://worldofwarships.com/), it is usually the default value `C:\Games\World_of_Warships`. Click on `Validate` to make sure the location is correct.
 8. Select your `region`.
-9. Get an `Application ID` from [Wargaming Developer Room](http://na.wargaming.net/developers/) at your region.
-    * Create an application on [My Applications](https://na.wargaming.net/developers/applications/) page in [Wargaming Developer Room](http://na.wargaming.net/developers/) at your region and copy the newly generated `Application ID`.
+9. Get an `Application ID` from [Wargaming Developer Room](https://developers.wargaming.net/) at your region.
+    * Create an application on [My Applications](https://developers.wargaming.net/applications/) page in [Wargaming Developer Room](https://developers.wargaming.net/) at your region and copy the newly generated `Application ID`.
     * Place `Application ID` you copied into `Application ID` textbox.
     * Click on `Validate` to make sure the `Application ID` you placed works.
 10. Click on `Save`. If everything goes through, the installation page will becomes an blank page.

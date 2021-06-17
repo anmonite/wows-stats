@@ -1,4 +1,4 @@
-const wsp_version = '1.2.1';
+const wsp_version = '1.3.0';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
@@ -9,7 +9,7 @@ $.getScript("./js/calculatePersonalRating.js");
 // include modal window handling
 $.getScript("./js/modalwindow.js");
 
-var settingsCookie = { "shipColumn": 64704, "playerColumn": 52224, "statsSite": 2 };
+var settingsCookie = { "shipColumn": 64704, "playerColumn": 19456, "statsSite": 2 };
 var lang_array = [];
 var site_array = [];
 var nameConvert_array = [];
@@ -17,6 +17,7 @@ var statsSite_array = [];
 //var coefficientsList = {};
 var expectedList = {};
 var ship_info = {};
+var shipinfo_wiki_baseURL = 'https://wiki.wargaming.net/en/Ship:';
 var clanTagList = {};
 var ownerName = '';
 var ready_lang = false;
@@ -1159,6 +1160,7 @@ api.ship = function(player) {
 					"shipkakin": kakin,
 					"name": data.name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(data.name),
+					"shipinfo_url": shipinfo_wiki_baseURL + encodeURI(data.name),
 					"namefont": api.shipnamefont(countLength(data.name)),
 					"namefont_trans": api.shipnamefont(countLength(api.shipnameTranslated(data.name))),
 					"bgcolor": data.info.type+"_bg",
@@ -1192,6 +1194,7 @@ api.ship = function(player) {
 					"shipkakin": kakin,
 					"name": ship_info.data[sid].name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(ship_info.data[sid].name),
+					"shipinfo_url": shipinfo_wiki_baseURL + encodeURI(data.name),
 					"namefont": api.shipnamefont(countLength(ship_info.data[sid].name)),
 					"namefont_trans": api.shipnamefont(countLength(api.shipnameTranslated(ship_info.data[sid].name))),
 					"bgcolor": ship_info.data[sid].type+"_bg",
@@ -1239,6 +1242,7 @@ api.ship = function(player) {
 				"shipkakin": '',
 				"name": '',
 				"name_trans": '',
+				"shipinfo_url": '',
 				"namefont" : '',
 				"namefont_trans" : '',
 				"bgcolor" : '',
