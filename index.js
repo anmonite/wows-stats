@@ -22,7 +22,7 @@ var jsonParser = bodyParser.json();
 
 // Get latest seasons(rank battle) number
 /* var latest_season_num = 0;
-*/
+
 
 function get_season_num() {
 	request(process.env.WOWS_API_URL + '/wows/seasons/info/?application_id=' + api_key, function (error, response, body) {
@@ -38,6 +38,7 @@ function get_season_num() {
 	});
 }
 get_season_num();
+*/
 
 function update_PRexpectedJSON() {
 	var req_options = {

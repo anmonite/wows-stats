@@ -796,7 +796,7 @@ api.shiptype_s = function(type, value) {
 api.nation_s = function(str) {
 var ntname = [
 	["japan","JP"] ,["usa","US"] ,["ussr","SN"],["germany","KM"] ,
-	["uk","RN"],["france","MN"] ,["europe","EU"],["pan_asia","PA"] ,
+	["uk","RN"],["france","MN"],["netherlands","NL"],["europe","EU"],["pan_asia","PA"] ,
 	["italy","IT"],["pan_america","PM"],["commonwealth","CW"]
 ];
 
@@ -812,7 +812,7 @@ var ntname = [
 api.nation_for_sort = function(str) {
 var ntname = [
 	["japan","J"] ,["usa","A"] ,["ussr","R"],["germany","G"] ,
-	["uk","B"],["france","F"] ,["europe","W"],["pan_asia","Z"] ,
+	["uk","B"],["france","F"],["netherlands","H"],["europe","W"],["pan_asia","Z"] ,
 	["italy","I"],["pan_america","V"],["commonwealth","U"]
 ];
 
