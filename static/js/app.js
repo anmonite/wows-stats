@@ -1047,7 +1047,9 @@ api.ship = function(player) {
 			var survived = "";
 			var kill = "";
 			var death = "";
-			var kakin = "";
+			var testship = "";
+			var premium = "";
+			var special = "";
 			var svrate = "";
 			var pr = "";
 			var combatPower = "";
@@ -1145,8 +1147,14 @@ api.ship = function(player) {
 				}
 			}
 
+			if (data.info.has_demo_profile != false){
+				testship ="[WiP]";
+			}
 			if (data.info.is_premium != false){
-				kakin ="℗";
+				premium ="Ⓟ";
+			}
+			if (data.info.is_special != false){
+				special ="Ⓢ";
 			}
 
 			if ((data.noRecord != true) && (battles > 0)) {
@@ -1157,7 +1165,9 @@ api.ship = function(player) {
 					"shiptype_alt": data.info.type,
 					"shipnation_s": images_path + api.nation_s(data.info.nation) + images_suffix,
 					"shipnation_alt": data.info.nation,
-					"shipkakin": kakin,
+					"shiptest": testship,
+					"shippremium": premium,
+					"shipspecial": special,
 					"name": data.name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(data.name),
 					"shipinfo_url": shipinfo_wiki_baseURL + encodeURI(data.name),
@@ -1191,7 +1201,9 @@ api.ship = function(player) {
 					"shiptype_alt": ship_info.data[sid].type,
 					"shipnation_s": images_path + api.nation_s(ship_info.data[sid].nation) + images_suffix,
 					"shipnation_alt": ship_info.data[sid].nation,
-					"shipkakin": kakin,
+					"shiptest": testship,
+					"shippremium": premium,
+					"shipspecial": special,
 					"name": ship_info.data[sid].name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(ship_info.data[sid].name),
 					"shipinfo_url": shipinfo_wiki_baseURL + encodeURI(data.name),
@@ -1227,7 +1239,9 @@ api.ship = function(player) {
 			var survived = "";
 			var kill = "";
 			var death = "";
-			var kakin = "";
+			var testship = "";
+			var premium = "";
+			var special = "";
 			var svrate = "";
 			var pr = "";
 			var combatPower = "";
@@ -1239,7 +1253,9 @@ api.ship = function(player) {
 				"shiptype_alt": '',
 				"shipnation_s": '',
 				"shipnation_alt": '',
-				"shipkakin": '',
+				"shiptest": '',
+				"shippremium": '',
+				"shipspecial": '',
 				"name": '',
 				"name_trans": '',
 				"shipinfo_url": '',

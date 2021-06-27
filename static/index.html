@@ -86,9 +86,11 @@
 							<td class="highlight_cancel">{{value.ship.shiptia_s}}</td>
 							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}"><img class="icon" ng-src="{{value.ship.shipnation_s}}" title="{{value.ship.shipnation_alt}}" /><img class="icon" ng-src="{{value.ship.shiptype_s}}" title="{{value.ship.shiptype_alt}}" /></td>
 							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}" style="padding-left: 3px; padding-right: 3px;">
+								<span class="key {{value.ship.namefont}}">{{value.ship.shiptest}}</span>
 								<span class="shipclass {{value.ship.namefont_trans}}" name="shipname_trans"><a ng-click="link_disabled()" href="{{value.ship.shipinfo_url}}" id="link_{{$parent.$index}}" style="color: #ffffff;" target="_blank" title="{{value.ship.name_trans}}">{{value.ship.name_trans}}</a></span>
 								<span class="shipclass {{value.ship.namefont}}" name="shipname_eng"><a ng-click="link_disabled()" href="{{value.ship.shipinfo_url}}" id="link_{{$parent.$index}}" style="color: #ffffff;" target="_blank" title="{{value.ship.name}}">{{value.ship.name}}</a></span>
-								<span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
+								<span class="key {{value.ship.namefont}}">{{value.ship.shippremium}}</span>
+								<span class="key {{value.ship.namefont}}">{{value.ship.shipspecial}}</span>
 							</td>
 							<td id="s_0_0_{{$parent.$index}}" ng-style="disp_column('s', 0)" class="{{value.ship.combatPowerClass}}"><span ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
 							<td id="s_0_10_{{$parent.$index}}" ng-style="disp_column('s', 10)" class="{{value.ship.PRClass}}"><span ng-hide="value.ship.err">{{value.ship.PR}}</span></td>
@@ -159,9 +161,11 @@
 							<td class="highlight_cancel">{{value.ship.shiptia_s}}</td>
 							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}"><img class="icon" ng-src="{{value.ship.shipnation_s}}" title="{{value.ship.shipnation_alt}}" /><img class="icon" ng-src="{{value.ship.shiptype_s}}" title="{{value.ship.shiptype_alt}}" /></td>
 							<td class="tdata_l highlight_cancel {{value.ship.bgcolor}}" style="padding-left: 3px; padding-right: 3px;">
+								<span class="key {{value.ship.namefont}}">{{value.ship.shiptest}}</span>
 								<span class="shipclass {{value.ship.namefont_trans}}" name="shipname_trans"><a ng-click="link_disabled()" href="{{value.ship.shipinfo_url}}" id="link_{{$parent.$index}}" style="color: #ffffff;" target="_blank" title="{{value.ship.name_trans}}">{{value.ship.name_trans}}</a></span>
 								<span class="shipclass {{value.ship.namefont}}" name="shipname_eng"><a ng-click="link_disabled()" href="{{value.ship.shipinfo_url}}" id="link_{{$parent.$index}}" style="color: #ffffff;" target="_blank" title="{{value.ship.name}}">{{value.ship.name}}</a></span>
-								<span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
+								<span class="key {{value.ship.namefont}}">{{value.ship.shippremium}}</span>
+								<span class="key {{value.ship.namefont}}">{{value.ship.shipspecial}}</span>
 							</td>
 							<td id="s_1_0_{{$parent.$index}}" ng-style="disp_column('s', 0)" class="{{value.ship.combatPowerClass}}"><span ng-hide="value.ship.err">{{value.ship.combatPower}}</span></td>
 							<td id="s_1_10_{{$parent.$index}}" ng-style="disp_column('s', 10)" class="{{value.ship.PRClass}}"><span ng-hide="value.ship.err">{{value.ship.PR}}</span></td>
