@@ -566,10 +566,10 @@ function getLanguage() {
 
 function getClanInfoURL(clan_id) {
 	if (clan_id != '') {
-		var base_url = 'http://vzhabin.ru/US_WoWsStatInfo/clans.php?realm_search=';
+		var base_url = 'https://clans.worldofwarships.';
 		var detect_server = api_url.match(/^http:\/\/api\.worldofwarships\.(\w+)$/)[1];
 
-		return base_url + detect_server + '&clan=' + clan_id;
+		return base_url + detect_server + '/clan-profile/' + clan_id + '?source=search';
 	} else {
 		return '';
 	}
