@@ -4,8 +4,8 @@
 		"uri": "https://worldofwarships.%%REGION%%/%%LANG%%/community/accounts/%%ID%%-%%NAME%%/"
 	},
 	{
-		"site": "WoWs Statinfo",
-		"uri": "http://vzhabin.ru/US_WoWsStatInfo/?realm_search=%%REGION%%&nickname=%%NAME%%"
+		"site": "Word of Warships (In GAME)",
+		"uri": "https://profile.worldofwarships.%%REGION%%/statistics/%%ID%%/"
 	},
 	{
 		"site": "WoWs Stats & Nmbers",
@@ -14,6 +14,10 @@
 	{
 		"site": "Proships.ru",
 		"uri": "https://proships.ru/stat/%%REGION%%/p/%%ID%%-%%NAME%%/"
+	},
+	{
+		"site": "WoWs Statinfo",
+		"uri": "http://vzhabin.ru/US_WoWsStatInfo/?realm_search=%%REGION%%&nickname=%%NAME%%"
 	},
 	{
 		"site": "WoWStats.org",
