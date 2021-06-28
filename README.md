@@ -15,19 +15,21 @@ Figure 2 - Settings window.
 - Show stats information of all matching players and ships on the random battle(pvp).
 - Show PR(Personal rating) value.
 - Show ships list with (maybe) same order as matching list of game client
-- Show value of "Combat power", player's rank of both previous and latest season and the clan tag in addition. 
+- Show value of "Combat power" and the clan tag in addition. 
 - You can take a screenshot image and save it to local PC as a png file by click "Capture" button.
 - Each player's row is colored like as xvm.
 - You can disabled showing all player's name to post the screenshot as public.
 - You can see clan information from link at clan tag strings.
+- You can see ship information (Wargaming.net Wiki) from link at ship name string.
 - You can see player's information page from link at IGN strings.
 - You can select display items from whole ship and player stats items via settings window (Figure 2).
-- You can switch stats site link from 5 stats site as follows on IGN strings via settings window (Figure 2).
+- You can switch stats site link from 6 stats site as follows on IGN strings via settings window (Figure 2).
     * "Word of Warships (official)"
-    * "WoWs Statinfo"
+	* "Word of Warships (In-GAME)"
     * "WoWs Stats & Nmbers"
     * "Proships.ru"
-    * "WoWStats.org"
+    * "WoWs Statinfo"
+	* "WoWStats.org"
 - You can select your prefer language by selecting language menu (default is come from your bowser's language setting).
 - Support multi-language viewing by preparing translate json file.
     (I provide JSON files to translate for Japanese, English, Chinese(zh-tw), Italian and Russian now.)
