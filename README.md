@@ -4,12 +4,12 @@ A [XVM](http://www.modxvm.com/en/) like statistics engine for [World of Warships
 
 Figure 1 - Main window.
 
-![Screenshot](https://i.imgur.com/b3CKQSO.png?1)
+![Screenshot](https://gyazo.com/053817caebc694609ecf4eb781228216)
 
 
 Figure 2 - Settings window.
 
-![Screenshot2](https://i.imgur.com/fiPjqXI.png?1)
+![Screenshot2](https://gyazo.com/af65e5eb720dd5ba3258ddd9124f83c0)
 
 # Functionality
 - Show stats information of all matching players and ships on the random battle(pvp).
