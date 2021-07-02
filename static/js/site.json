@@ -1,10 +1,10 @@
 [
 	{
-		"site": "Word of Warships (official)",
+		"site": "World of Warships (official)",
 		"uri": "https://worldofwarships.%%REGION%%/%%LANG%%/community/accounts/%%ID%%-%%NAME%%/"
 	},
 	{
-		"site": "Word of Warships (In GAME)",
+		"site": "World of Warships (In GAME)",
 		"uri": "https://profile.worldofwarships.%%REGION%%/statistics/%%ID%%/"
 	},
 	{
