@@ -1,4 +1,4 @@
-const wsp_version = '1.3.0';
+const wsp_version = '1.3.1';
 const MAX_RETRY = 5;
 const images_path = 'images/';
 const images_suffix = '.png';
@@ -566,10 +566,10 @@ function getLanguage() {
 
 function getClanInfoURL(clan_id) {
 	if (clan_id != '') {
-		var base_url = 'http://vzhabin.ru/US_WoWsStatInfo/clans.php?realm_search=';
+		var base_url = 'https://clans.worldofwarships.';
 		var detect_server = api_url.match(/^http:\/\/api\.worldofwarships\.(\w+)$/)[1];
 
-		return base_url + detect_server + '&clan=' + clan_id;
+		return base_url + detect_server + '/clan-profile/' + clan_id + '?source=search';
 	} else {
 		return '';
 	}
@@ -796,7 +796,7 @@ api.shiptype_s = function(type, value) {
 api.nation_s = function(str) {
 var ntname = [
 	["japan","JP"] ,["usa","US"] ,["ussr","SN"],["germany","KM"] ,
-	["uk","RN"],["france","MN"] ,["europe","EU"],["pan_asia","PA"] ,
+	["uk","RN"],["france","MN"],["netherlands","NL"],["europe","EU"],["pan_asia","PA"] ,
 	["italy","IT"],["pan_america","PM"],["commonwealth","CW"]
 ];
 
@@ -812,7 +812,7 @@ var ntname = [
 api.nation_for_sort = function(str) {
 var ntname = [
 	["japan","J"] ,["usa","A"] ,["ussr","R"],["germany","G"] ,
-	["uk","B"],["france","F"] ,["europe","W"],["pan_asia","Z"] ,
+	["uk","B"],["france","F"],["netherlands","H"],["europe","W"],["pan_asia","Z"] ,
 	["italy","I"],["pan_america","V"],["commonwealth","U"]
 ];
 
@@ -1047,7 +1047,9 @@ api.ship = function(player) {
 			var survived = "";
 			var kill = "";
 			var death = "";
-			var kakin = "";
+			var testship = "";
+			var premium = "";
+			var special = "";
 			var svrate = "";
 			var pr = "";
 			var combatPower = "";
@@ -1145,8 +1147,14 @@ api.ship = function(player) {
 				}
 			}
 
+			if (data.info.has_demo_profile != false){
+				testship ="[WiP]";
+			}
 			if (data.info.is_premium != false){
-				kakin ="℗";
+				premium ="Ⓟ";
+			}
+			if (data.info.is_special != false){
+				special ="Ⓢ";
 			}
 
 			if ((data.noRecord != true) && (battles > 0)) {
@@ -1157,7 +1165,9 @@ api.ship = function(player) {
 					"shiptype_alt": data.info.type,
 					"shipnation_s": images_path + api.nation_s(data.info.nation) + images_suffix,
 					"shipnation_alt": data.info.nation,
-					"shipkakin": kakin,
+					"shiptest": testship,
+					"shippremium": premium,
+					"shipspecial": special,
 					"name": data.name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(data.name),
 					"shipinfo_url": shipinfo_wiki_baseURL + encodeURI(data.name),
@@ -1191,7 +1201,9 @@ api.ship = function(player) {
 					"shiptype_alt": ship_info.data[sid].type,
 					"shipnation_s": images_path + api.nation_s(ship_info.data[sid].nation) + images_suffix,
 					"shipnation_alt": ship_info.data[sid].nation,
-					"shipkakin": kakin,
+					"shiptest": testship,
+					"shippremium": premium,
+					"shipspecial": special,
 					"name": ship_info.data[sid].name.toUpperCase(),
 					"name_trans": api.shipnameTranslated(ship_info.data[sid].name),
 					"shipinfo_url": shipinfo_wiki_baseURL + encodeURI(data.name),
@@ -1227,7 +1239,9 @@ api.ship = function(player) {
 			var survived = "";
 			var kill = "";
 			var death = "";
-			var kakin = "";
+			var testship = "";
+			var premium = "";
+			var special = "";
 			var svrate = "";
 			var pr = "";
 			var combatPower = "";
@@ -1239,7 +1253,9 @@ api.ship = function(player) {
 				"shiptype_alt": '',
 				"shipnation_s": '',
 				"shipnation_alt": '',
-				"shipkakin": '',
+				"shiptest": '',
+				"shippremium": '',
+				"shipspecial": '',
 				"name": '',
 				"name_trans": '',
 				"shipinfo_url": '',
