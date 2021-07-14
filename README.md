@@ -24,8 +24,8 @@ Figure 2 - Settings window.
 - You can see player's information page from link at IGN strings.
 - You can select display items from whole ship and player stats items via settings window (Figure 2).
 - You can switch stats site link from 6 stats site as follows on IGN strings via settings window (Figure 2).
-    * "Word of Warships (official)"
-	* "Word of Warships (In-GAME)"
+    * "World of Warships (official)"
+	* "World of Warships (In-GAME)"
     * "WoWs Stats & Nmbers"
     * "Proships.ru"
     * "WoWs Statinfo"
